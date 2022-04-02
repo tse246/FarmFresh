@@ -1,0 +1,30 @@
+<header>
+  <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3" style="padding: 0 !important; height: 100px;">
+    <div class="container" style="padding: 0 !important">
+      <a class="navbar-brand" style="padding: 0 !important" [routerLink]="['/']"><img class="navbar-brand" src="assets/FarmFresh_Logo.png" width="200px" /></a>
+      <button class="navbar-toggler"
+              type="button"
+              data-toggle="collapse"
+              data-target=".navbar-collapse"
+              aria-label="Toggle navigation"
+              [attr.aria-expanded]="isExpanded"
+              (click)="toggle()">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="navbar-collapse collapse d-sm-inline-flex justify-content-end"
+           [ngClass]="{ show: isExpanded }">
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <form class="form-inline">
+            <input mat-input #searchInput class="form-control mr-sm-2" type="search" placeholder="Search for a product or brand" aria-label="Search">
+            <button mat-button (click)="onSearch(searchInput.value)" class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          </form>
+        </div>
+        <ul class="navbar-nav flex-grow">
+          <li class="nav-item" [routerLinkActive]="['link-active']">
+            <a class="nav-link text-dark" [routerLink]="['/shopping-cart']"><img class="navbar-brand" src="assets/shopping_cart.png" width="30px" /></a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
