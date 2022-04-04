@@ -8,6 +8,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ProductComponent {
   public products: Product[];
+  public categories: Category[];
   productName: string;
 
   constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string, private route: ActivatedRoute) {
@@ -20,6 +21,10 @@ export class ProductComponent {
       this.http.get<Product[]>(this.baseUrl + 'api/product?productName=' + this.productName).subscribe(result => {
         this.products = result;
       }, error => console.error(error));
+
+      this.http.get<Category[]>(this.baseUrl + 'api/Category').subscribe(result => {
+        this.categories = result;
+      }, error => console.error(error));
     });
   }
 }
@@ -27,6 +32,12 @@ export class ProductComponent {
 interface Product {
   name: string;
   detail: string;
-  category: number;
   path: string;
+}
+
+interface Category {
+  id: number;
+  name: string;
+  detail: string;
+  value: number;
 }

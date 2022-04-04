@@ -66,35 +66,43 @@ namespace FarmFresh.Model
             {
                 new Category(){
                     Name = "On sale!",
-                    Description = "On sale!"
+                    Description = "On sale!",
+                    Value = 1
                 },
                 new Category(){
                     Name = "New",
-                    Description = "New"
+                    Description = "New",
+                    Value = 2
                 },
                 new Category(){
                     Name = "Shop by Store",
-                    Description = "Shop by Store"
+                    Description = "Shop by Store",
+                    Value = 3
                 },
                 new Category(){
                     Name = "Fruit & Veg",
-                    Description = "Fruit & Veg"
+                    Description = "Fruit & Veg",
+                    Value = 4
                 },
                 new Category(){
                     Name = "Meat & Seafood",
-                    Description = "Meat & Seafood"
+                    Description = "Meat & Seafood",
+                    Value = 5
                 },
                 new Category(){
                     Name = "Dairy and Chilled",
-                    Description = "Dairy and Chilled"
+                    Description = "Dairy and Chilled",
+                    Value = 6
                 },
                 new Category(){
                     Name = "Bakery",
-                    Description = "Bakery"
+                    Description = "Bakery",
+                    Value = 7
                 },
                 new Category(){
                     Name = "Beverages",
-                    Description = "Beverages"
+                    Description = "Beverages",
+                    Value = 8
                 }
             };
 

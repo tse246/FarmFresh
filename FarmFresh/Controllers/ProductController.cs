@@ -13,11 +13,6 @@ namespace FarmFresh.Controllers
     [Route("api/[controller]")]
     public class ProductController : ControllerBase
     {
-        //private static readonly string[] Summaries = new[]
-        //{
-        //    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        //};
-
         private readonly ILogger<ProductController> _logger;
 
         public ProductController(ILogger<ProductController> logger)
@@ -29,27 +24,44 @@ namespace FarmFresh.Controllers
         public List<Product> Get(string productName)
         {
             List<Product> productList;
-            productName = string.IsNullOrWhiteSpace(productName) ? string.Empty : productName;
+            productName = string.IsNullOrWhiteSpace(productName) || productName.ToLower().Equals("null") ? string.Empty : productName;
 
-            using (var tx = new TransactionScope(TransactionScopeOption.Required,
-                    new TransactionOptions() { IsolationLevel = IsolationLevel.ReadUncommitted }))
+            using (var context = new Context())
             {
-                using (var context = new Context())
-                {
-                    productList = (from p in context.Products
-                                   where p.Name.Contains(productName)
-                                   select new Product
-                                   {
-                                       Name = p.Name,
-                                       Detail = p.Detail,
-                                       Path = p.Path
-                                   }).ToList();
-                }
+                productList = (from p in context.Products
+                               where p.Name.Contains(productName)
+                               select new Product
+                               {
+                                   Name = p.Name,
+                                   Detail = p.Detail,
+                                   Path = p.Path
+                               }).OrderBy(p => p.Name).ToList();
             }
 
             return productList;
         }
 
-        
+        [HttpGet]
+        [Route("{Category:int}")]
+        public List<Product> Get(int Category)
+        {
+            List<Product> productList;
+
+            using (var context = new Context())
+            {
+                productList = (from p in context.Products
+                               join pc in context.ProductCategories
+                               on p.Id equals pc.ProductID
+                               where pc.CategoryID.Equals(Category)
+                               select new Product
+                               {
+                                   Name = p.Name,
+                                   Detail = p.Detail,
+                                   Path = p.Path
+                               }).ToList();
+            }
+
+            return productList;
+        }
     }
 }
