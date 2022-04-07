@@ -106,8 +106,20 @@ namespace FarmFresh.Model
                 }
             };
 
+            List<User> users = new List<User>()
+            {
+                new User()
+                {
+                    Username = "admin",
+                    Password = "admin",
+                    FirstName = "Admin",
+                    LastName = "Admin"
+                }
+            };
+
             context.Products.AddRange(products);
             context.Category.AddRange(categories);
+            context.Users.AddRange(users);
             context.SaveChanges();
 
             List<Product_Category> product_Categories = new List<Product_Category>()

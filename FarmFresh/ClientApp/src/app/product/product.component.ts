@@ -18,11 +18,12 @@ export class ProductComponent {
     this.route.paramMap.subscribe(params => {
       this.productName = params.get('productName');
 
-      this.http.get<Product[]>(this.baseUrl + 'api/product?productName=' + this.productName).subscribe(result => {
+      const headers = { 'Authorization': 'Bearer ' + sessionStorage.getItem("token") };
+      this.http.get<Product[]>(this.baseUrl + 'api/product?productName=' + this.productName, { headers }).subscribe(result => {
         this.products = result;
       }, error => console.error(error));
 
-      this.http.get<Category[]>(this.baseUrl + 'api/Category').subscribe(result => {
+      this.http.get<Category[]>(this.baseUrl + 'api/Category', { headers }).subscribe(result => {
         this.categories = result;
       }, error => console.error(error));
     });

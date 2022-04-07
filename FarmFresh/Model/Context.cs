@@ -16,6 +16,9 @@ namespace FarmFresh.Model
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<User>()
+                .HasKey(u => new { u.Id });
+
             modelBuilder.Entity<Product_Category>()
                 .HasKey(pc => new { pc.ProductID, pc.CategoryID });
 
@@ -30,9 +33,9 @@ namespace FarmFresh.Model
                 .HasForeignKey(c => c.CategoryID);
         }
 
+        public DbSet<User> Users { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Product_Category> ProductCategories { get; set; }
         public DbSet<Category> Category { get; set; }
-
     }
 }

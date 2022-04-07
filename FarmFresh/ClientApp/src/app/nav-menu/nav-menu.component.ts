@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 @Component({
@@ -9,7 +10,7 @@ import { Router } from '@angular/router';
 export class NavMenuComponent {
   isExpanded = false;
 
-  constructor(private router: Router) {
+  constructor(private http: HttpClient, private router: Router, @Inject('BASE_URL') private baseUrl: string) {
 
   }
 
@@ -22,6 +23,10 @@ export class NavMenuComponent {
   }
 
   onSearch(searchText) {
-    this.router.navigate(["/product", searchText ]);
+    const body = { Username: 'admin', Password: 'admin' };
+    this.http.post<any>(this.baseUrl + 'api/users/Auth', body, { responseType: 'text' as 'json' }).subscribe(result => {
+      sessionStorage.setItem("token", result);
+      this.router.navigate(["/product", searchText]);
+    }, error => console.error(error));
   }
 }
